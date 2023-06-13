@@ -11,7 +11,7 @@ let solarSystemOffset = -2;
 
 //constant Variables ----------------------------------------------------------------
 const startContainer = document.getElementById('start-container');
-const sceneContainer = document.getElementById('scene-container');
+// const sceneContainer = document.getElementById('scene-container');
 
 const sizes = {
 	width: window.innerWidth,
@@ -63,18 +63,12 @@ const canRotations = [
 ]
 //-----------------------------------------------------------------------------------
 
-//load shaders
-const perlinVertexShader = await fetch('./shaders/perlin/perlin_shader.vert').then(response => response.text());
-const perlinFragmentShader = await fetch('./shaders/perlin/perlin_shader.frag').then(response => response.text());
-const sunVertexShader = await fetch('./shaders/sun_shader.vert').then(response => response.text());
-const sunFragmentShader = await fetch('./shaders/sun_shader.frag').then(response => response.text());
-
 
 //create base components
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
 const renderer = new THREE.WebGLRenderer(
-	{ antialias: true, alpha: true, canvas: sceneContainer }
+	{ antialias: true, alpha: true }
 );
 
 renderer.setPixelRatio(window.devicePixelRatio);
