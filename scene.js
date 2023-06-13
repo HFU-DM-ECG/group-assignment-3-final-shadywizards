@@ -10,7 +10,7 @@ let time = 0;
 let solarSystemOffset = -2;
 
 //constant Variables ----------------------------------------------------------------
-const startContainer = document.getElementById('start-container');
+// const startContainer = document.getElementById('start-container');
 // const sceneContainer = document.getElementById('scene-container');
 
 const sizes = {
@@ -93,7 +93,7 @@ const arButton = ARButton.createButton(renderer, {
 	domOverlay: { root: document.body },
 });
 arButton.id = "ar-btn";
-startContainer.appendChild(arButton);
+document.body.appendChild(arButton);
 
 
 //AR controller (for touch input on mobile devices) --------------------------------
