@@ -7,7 +7,7 @@ import * as planets from './planets.js';
 
 //changing variables
 let time = 0;
-let solarSystemOffset = 0;
+let solarSystemOffset = -2;
 
 //constant Variables ----------------------------------------------------------------
 const startContainer = document.getElementById('start-container');
@@ -204,59 +204,14 @@ function animateCans() {
 		canCounter += 1;
 	}
 	requestAnimationFrame(animateCans);
-	renderer.render(scene, camera);
 };
 
 
 
 //Sun----------------------------------------------------------------
 const sunGeometry = new THREE.SphereGeometry(1, 32, 32);
-const sunMaterial = new THREE.ShaderMaterial({
-	side: THREE.DoubleSide,
-	vertexShader: sunVertexShader,
-	fragmentShader: sunFragmentShader,
-	uniforms: {
-		time: { value: 0 },
-		uPerlin: { value: null },
-		resolution: { value: new THREE.Vector4() }
-	}
-});
-
-//improved sun texutre -> use the layered noise of perlinShader as a texture, in order to improve performance and have a more realistic look-------------------
-//create new scene, which only contains a sphere with a simplex perlin noise shader 
-const scenePerlin = new THREE.Scene();
-// cuberenderTarget contains the perlin texture
-const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(
-	256, {
-	format: THREE.RGBAFormat,
-	generateMipMaps: true,
-	minFilter: THREE.LinearMipmapFilter,
-	encoding: THREE.sRGBEncoding
-});
-cubeRenderTarget.texture.type = THREE.HalfFloatType;
-// THREE.CubeCamera: Constructs a CubeCamera that contains 6 PerspectiveCameras that render to a WebGLCubeRenderTarget.
-const cubeCamera = new THREE.CubeCamera(0.1, 10, cubeRenderTarget);
-// The ShaderMaterial which is used as a texture
-const perlinMaterial = new THREE.ShaderMaterial({
-	side: THREE.DoubleSide,
-	vertexShader: perlinVertexShader,
-	fragmentShader: perlinFragmentShader,
-	uniforms: {
-		time: { value: 0 },
-	}
-});
-
-function addSunTexture() {
-	const geometry = new THREE.SphereBufferGeometry(0.99, 30, 30);
-
-	const perlin = new THREE.Mesh(geometry, perlinMaterial);
-	perlin.position.x = sunPos.x;
-	perlin.position.y = sunPos.y;
-	perlin.position.z = sunPos.z;
-	solarSystem.add(perlin);
-}
-addSunTexture();
-// ------------------------------------------------------------------------------------------------------------------------------------------------------------
+const sunTexture = new THREE.TextureLoader().load('Assets/sun.jpg');
+const sunMaterial = new THREE.MeshBasicMaterial({ map: sunTexture });
 
 
 const sunMesh = new THREE.Mesh(sunGeometry, sunMaterial);
@@ -281,10 +236,6 @@ controls.update()
 
 function renderScene() {
 	time += 1;
-	// cubeCamera.update(renderer, scene);
-	perlinMaterial.uniforms.time.value = time;
-	sunMaterial.uniforms.time.value = time;
-	sunMaterial.uniforms.uPerlin.value = cubeRenderTarget.texture; // cubeRenderTarget.texture = perlinMaterial
 	scene;
 	controls.update();
 	requestAnimationFrame(renderScene);
