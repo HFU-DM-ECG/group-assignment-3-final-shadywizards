@@ -7,12 +7,9 @@ import * as planets from './planets.js';
 
 //changing variables
 let time = 0;
-let solarSystemOffset = -2;
+let solarSystemOffset = -3;
 
 //constant Variables ----------------------------------------------------------------
-// const startContainer = document.getElementById('start-container');
-// const sceneContainer = document.getElementById('scene-container');
-
 const sizes = {
 	width: window.innerWidth,
 	height: window.innerHeight
@@ -68,11 +65,12 @@ const canRotations = [
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
 const renderer = new THREE.WebGLRenderer(
-	{ antialias: true, alpha: true }
+	{ alpha: true }
 );
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0);
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.shadowMap.enabled = true;
 renderer.xr.enabled = true;
@@ -87,11 +85,7 @@ solarSystem.scale.set(solarSystemScale, solarSystemScale, solarSystemScale);
 scene.add(solarSystem);
 
 //AR-Button
-const arButton = ARButton.createButton(renderer, {
-	requiredFeatures: ['hit-test'],
-	optionalFeatures: ["dom-overlay", "dom-overlay-for-handheld-ar"],
-	domOverlay: { root: document.body },
-});
+const arButton = ARButton.createButton(renderer);
 arButton.id = "ar-btn";
 document.body.appendChild(arButton);
 
@@ -229,11 +223,11 @@ controls.update()
 
 
 function renderScene() {
-	time += 1;
-	scene;
-	controls.update();
-	requestAnimationFrame(renderScene);
-	renderer.render(scene, camera);
+	renderer.setAnimationLoop(() => {
+		time += 1;
+		controls.update();
+		renderer.render(scene, camera);
+	});
 };
 
 renderScene();
