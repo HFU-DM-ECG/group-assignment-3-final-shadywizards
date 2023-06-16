@@ -221,7 +221,7 @@ solarSystem.add(sunMesh);
 
 
 // ui test ----------------------------------------------------------
-UiPanel.createUI(scene);
+UiPanel.createUI(solarSystem);
 function createUIPanel() {
 	const panel = new GUI({ width: 310 });
 }

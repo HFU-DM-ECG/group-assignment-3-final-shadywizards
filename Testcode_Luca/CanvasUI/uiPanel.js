@@ -75,7 +75,7 @@ class UiPanel {
             footer: "Footer"
         }
         const ui = new CanvasUI(content, css);
-        ui.mesh.position.set(0, 0, 0);
+        ui.mesh.position.set(0, 2, 0);
         scene.add(ui.mesh);
     }
 
