@@ -2,6 +2,7 @@ import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/exampl
 import * as THREE from 'https://unpkg.com/three@0.120.1/build/three.module.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.120.1/examples/jsm/loaders/GLTFLoader.js';
 import { ARButton } from './ARButton.js';
+import { UiPanel } from './CanvasUI/uiPanel.js';
 
 import * as planets from './planets.js';
 
@@ -217,6 +218,10 @@ sunMesh.position.z = sunPos.z;
 solarSystem.add(sunMesh);
 //-------------------------------------------------------------------
 
+
+// ui test ----------------------------------------------------------
+UiPanel.createUI(camera);
+// ------------------------------------------------------------------
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.autoRotate = false;
