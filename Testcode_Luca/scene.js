@@ -90,7 +90,7 @@ scene.add(solarSystem);
 let options = {
 	requiredFeatures: ['hit-test'],
 	optionalFeatures: ['dom-overlay', 'dom-overlay-for-handheld-ar'],
-	domOverlay: { root: document.getElementById('interface') }
+	domOverlay: { root: document.body }
 }
 const arButton = ARButton.createButton(renderer, options);
 arButton.id = "ar-btn";
