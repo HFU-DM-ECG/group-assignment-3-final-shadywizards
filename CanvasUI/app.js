@@ -5,7 +5,7 @@ import { BoxLineGeometry } from 'https://cdn.skypack.dev/three@0.135/examples/js
 import { CanvasUI } from './CanvasUI.js';
 import { VRButton } from './VRButton.js';
 
-class UiPanel {
+class App {
     constructor() {
         const container = document.createElement('div');
         document.body.appendChild(container);
@@ -47,38 +47,12 @@ class UiPanel {
         this.createUI();
     }
 
-    static createUI(scene, headerText, mainText) {
-        const css = {
-            header: {
-                type: "text",
-                position: { top: 0 },
-                paddingTop: 30,
-                height: 70,
-                backgroundColor: "#ff4f19",
-            },
-            main: {
-                type: "text",
-                position: { top: 70 },
-                height: 372, // default height is 512 so this is 512 - header height:70 - footer height:70
-                backgroundColor: "#f5b37d",
-                fontColor: "#000"
-            },
-            footer: {
-                type: "text",
-                position: { bottom: 0 },
-                paddingTop: 30,
-                height: 70,
-                backgroundColor: "#ff4f19",
-            }
-        }
-        const content = {
-            header: headerText,
-            main: mainText,
-            footer: ""
-        }
-        const ui = new CanvasUI(content, css);
-        ui.mesh.position.set(0, 3, 0);
-        scene.add(ui.mesh);
+    createUI() {
+        this.ui = new CanvasUI();
+        this.ui.updateElement("body", "Hello World");
+
+        this.ui.mesh.position.set(0, 1.5, -1.6);
+        this.camera.attach(this.ui.mesh);
     }
 
     setupXR() {
@@ -94,9 +68,9 @@ class UiPanel {
     }
 
     render() {
-        if (this.renderer.xr.isPresenting) this.ui.update();
+        this.ui.update();
         this.renderer.render(this.scene, this.camera);
     }
 }
 
-export { UiPanel };
+export { App };

@@ -1,4 +1,3 @@
-import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.18/+esm';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
 import * as THREE from 'https://unpkg.com/three@0.120.1/build/three.module.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.120.1/examples/jsm/loaders/GLTFLoader.js';
@@ -220,8 +219,10 @@ solarSystem.add(sunMesh);
 //-------------------------------------------------------------------
 
 
-// ui test ----------------------------------------------------------
-UiPanel.createUI(solarSystem);
+// Info UI ----------------------------------------------------------
+let headerText = "Sun";
+let mainText = "Consume at: 1234°C \n Nearest Supermarket: 1234°C \n Mass: 3,285 × 10 ^ 23 kg \n Radius: 2.439, 7 km";
+UiPanel.createUI(solarSystem, headerText, mainText);
 // ------------------------------------------------------------------
 
 const controls = new OrbitControls(camera, renderer.domElement);
