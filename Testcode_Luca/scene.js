@@ -1,3 +1,4 @@
+import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.18/+esm';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
 import * as THREE from 'https://unpkg.com/three@0.120.1/build/three.module.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.120.1/examples/jsm/loaders/GLTFLoader.js';
@@ -220,7 +221,11 @@ solarSystem.add(sunMesh);
 
 
 // ui test ----------------------------------------------------------
-UiPanel.createUI(camera);
+// UiPanel.createUI(camera);
+function createUIPanel() {
+	const panel = new GUI({ width: 310 });
+}
+createUIPanel();
 // ------------------------------------------------------------------
 
 const controls = new OrbitControls(camera, renderer.domElement);
