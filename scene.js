@@ -218,24 +218,41 @@ solarSystem.add(sunMesh);
 // 2D UI for setting properties--------------------------------------
 function createPropertiesUIPanel() {
 	const panel = new GUI({ width: 310 });
+
+	const settings = {
+		planetsScale: 2.0,
+	}
+	panel.add(settings, 'planetsScale', 0.0, 10.0, 0.01);
+
+	function modifyPlanetsScale(scale) {
+		console.log(scale)
+	}
 }
 createPropertiesUIPanel();
 // ------------------------------------------------------------------
 
 // Info UI ----------------------------------------------------------
 let canPositions = planets.getAllPlanetPositions(time);
-let position = {
-	x: sunPos.x,
-	y: 3,
-	z: sunPos.z
+let InfoUIPanel;
+function createInfoUIPanel() {
+	let position = {
+		x: sunPos.x,
+		y: 3,
+		z: sunPos.z
+	}
+	let headerText = "Sun";
+	let mainText = "Placeholder";
+	InfoUIPanel = UiPanel.createUI(solarSystem, position, headerText, mainText);
 }
-let headerText = "Sun";
-let mainText = "Placeholder";
-let InfoUI = UiPanel.createUI(solarSystem, position, headerText, mainText);
+createInfoUIPanel();
+
+function updateInfoUIText(headerText, mainText) {
+	InfoUIPanel.updateElement("header", headerText);
+	InfoUIPanel.updateElement("main", mainText);
+}
+updateInfoUIText("Mercury", "Consume at: 1234°C \n Nearest Supermarket: 1234°C \n Mass: 3,285 × 10 ^ 23 kg \n Radius: 2.439, 7 km");
 // InfoUI.setPosition(position);
 // InfoUI.setRotation({ x: 0, y: 90, z: 0 });
-InfoUI.updateElement("header", "Mercury");
-InfoUI.updateElement("main", "Consume at: 1234°C \n Nearest Supermarket: 1234°C \n Mass: 3,285 × 10 ^ 23 kg \n Radius: 2.439, 7 km");
 // ------------------------------------------------------------------
 
 
@@ -252,7 +269,7 @@ function renderScene() {
 	renderer.setAnimationLoop(() => {
 		time += 1;
 		controls.update();
-		InfoUI.update();
+		InfoUIPanel.update();
 		renderer.render(scene, camera);
 	});
 };
