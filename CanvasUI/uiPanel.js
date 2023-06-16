@@ -47,7 +47,7 @@ class UiPanel {
         this.createUI();
     }
 
-    static createUI(scene, headerText, mainText) {
+    static createUI(scene, position, headerText, mainText) {
         const css = {
             header: {
                 type: "text",
@@ -77,8 +77,9 @@ class UiPanel {
             footer: ""
         }
         const ui = new CanvasUI(content, css);
-        ui.mesh.position.set(0, 3, 0);
+        ui.mesh.position.set(position.x, position.y, position.z);
         scene.add(ui.mesh);
+        return ui;
     }
 
     setupXR() {

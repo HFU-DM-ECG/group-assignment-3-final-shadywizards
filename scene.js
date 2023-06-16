@@ -1,3 +1,4 @@
+import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.18/+esm';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js';
 import * as THREE from 'https://unpkg.com/three@0.120.1/build/three.module.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.120.1/examples/jsm/loaders/GLTFLoader.js';
@@ -214,10 +215,27 @@ solarSystem.add(sunMesh);
 //-------------------------------------------------------------------
 
 
+// 2D UI for setting properties--------------------------------------
+function createPropertiesUIPanel() {
+	const panel = new GUI({ width: 310 });
+}
+createPropertiesUIPanel();
+// ------------------------------------------------------------------
+
 // Info UI ----------------------------------------------------------
+let canPositions = planets.getAllPlanetPositions(time);
+let position = {
+	x: sunPos.x,
+	y: 3,
+	z: sunPos.z
+}
 let headerText = "Sun";
-let mainText = "Consume at: 1234°C \n Nearest Supermarket: 1234°C \n Mass: 3,285 × 10 ^ 23 kg \n Radius: 2.439, 7 km";
-UiPanel.createUI(solarSystem, headerText, mainText);
+let mainText = "Placeholder";
+let InfoUI = UiPanel.createUI(solarSystem, position, headerText, mainText);
+// InfoUI.setPosition(position);
+// InfoUI.setRotation({ x: 0, y: 90, z: 0 });
+InfoUI.updateElement("header", "Mercury");
+InfoUI.updateElement("main", "Consume at: 1234°C \n Nearest Supermarket: 1234°C \n Mass: 3,285 × 10 ^ 23 kg \n Radius: 2.439, 7 km");
 // ------------------------------------------------------------------
 
 
@@ -234,6 +252,7 @@ function renderScene() {
 	renderer.setAnimationLoop(() => {
 		time += 1;
 		controls.update();
+		InfoUI.update();
 		renderer.render(scene, camera);
 	});
 };
