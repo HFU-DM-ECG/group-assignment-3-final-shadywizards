@@ -47,7 +47,7 @@ class UiPanel {
         this.createUI();
     }
 
-    static createUI(camera) {
+    static createUI(scene) {
         const css = {
             header: {
                 type: "text",
@@ -76,7 +76,7 @@ class UiPanel {
         }
         const ui = new CanvasUI(content, css);
         ui.mesh.position.set(0, 0, 0);
-        camera.attach(ui.mesh);
+        scene.add(ui.mesh);
     }
 
     setupXR() {
