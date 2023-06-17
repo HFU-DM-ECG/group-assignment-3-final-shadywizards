@@ -47,33 +47,74 @@ class UiPanel {
         this.createUI();
     }
 
-    static createUI(scene, position, headerText, mainText) {
+    static createUI(scene, position, headerText, mainText, headerColor, textColor) {
+        let mainTextHeight = 130;
         const css = {
             header: {
                 type: "text",
                 position: { top: 0 },
                 paddingTop: 30,
                 height: 70,
-                backgroundColor: "#ff4f19",
+                backgroundColor: headerColor,
             },
-            main: {
+            temp: {
                 type: "text",
                 position: { top: 70 },
-                height: 372, // default height is 512 so this is 512 - header height:70 - footer height:70
-                backgroundColor: "#f5b37d",
+                height: mainTextHeight, // default height is 512 so this is 512 - header height:70 - footer height:70
+                backgroundColor: textColor,
+                fontColor: "#000",
+            },
+            dist: {
+                type: "text",
+                position: { top: 125 },
+                height: mainTextHeight, // default height is 512 so this is 512 - header height:70 - footer height:70
+                backgroundColor: textColor,
+                fontColor: "#000"
+            },
+            mass: {
+                type: "text",
+                position: { top: 230},
+                height: mainTextHeight, // default height is 512 so this is 512 - header height:70 - footer height:70
+                backgroundColor: textColor,
+                fontColor: "#000"
+            },
+            a: {
+                type: "text",
+                position: { top: 290 },
+                height: mainTextHeight, // default height is 512 so this is 512 - header height:70 - footer height:70
+                backgroundColor: textColor,
+                fontColor: "#000"
+            },
+            b: {
+                type: "text",
+                position: { top: 350 },
+                height: mainTextHeight, // default height is 512 so this is 512 - header height:70 - footer height:70
+                backgroundColor: textColor,
+                fontColor: "#000"
+            },
+            c: {
+                type: "text",
+                position: { top: 410 },
+                height: mainTextHeight, // default height is 512 so this is 512 - header height:70 - footer height:70
+                backgroundColor: textColor,
                 fontColor: "#000"
             },
             footer: {
                 type: "text",
                 position: { bottom: 0 },
                 paddingTop: 30,
-                height: 70,
-                backgroundColor: "#ff4f19",
+                height: 50,
+                backgroundColor: headerColor,
             }
         }
         const content = {
             header: headerText,
-            main: mainText,
+            temp: mainText,
+            dist: mainText,
+            mass: mainText,
+            a: mainText,
+            b: mainText,
+            c: mainText,
             footer: ""
         }
         const ui = new CanvasUI(content, css);

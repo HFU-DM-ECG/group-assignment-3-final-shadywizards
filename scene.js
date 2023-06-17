@@ -6,6 +6,7 @@ import { ARButton } from './ARButton.js';
 import { UiPanel } from './CanvasUI/uiPanel.js';
 
 import * as planets from './planets.js';
+import * as infoUIText from './info.js';
 
 //changing variables
 let time = 0;
@@ -242,15 +243,30 @@ function createInfoUIPanel() {
 	}
 	let headerText = "Sun";
 	let mainText = "Placeholder";
-	InfoUIPanel = UiPanel.createUI(solarSystem, position, headerText, mainText);
+	let headerColor = "#ff4f19";
+	let textColor = "#CAA185";
+	InfoUIPanel = UiPanel.createUI(solarSystem, position, headerText, mainText, headerColor, textColor);
 }
 createInfoUIPanel();
 
-function updateInfoUIText(headerText, mainText) {
+function updateInfoUIText(headerText, temp, dist, mass, a, b, c) {
 	InfoUIPanel.updateElement("header", headerText);
-	InfoUIPanel.updateElement("main", mainText);
+	InfoUIPanel.updateElement("temp", temp);
+	InfoUIPanel.updateElement("dist", dist);
+	InfoUIPanel.updateElement("mass", mass);
+	InfoUIPanel.updateElement("a", a);
+	InfoUIPanel.updateElement("b", b);
+	InfoUIPanel.updateElement("c", c);
 }
-updateInfoUIText("Mercury", "Consume at: 1234°C \n Nearest Supermarket: 1234°C \n Mass: 3,285 × 10 ^ 23 kg \n Radius: 2.439, 7 km");
+updateInfoUIText(
+	infoUIText.getInfoUIPanelText(1).planet, 
+	infoUIText.getInfoUIPanelText(1).temperature, 
+	infoUIText.getInfoUIPanelText(1).distance, 
+	infoUIText.getInfoUIPanelText(1).mass, 
+	infoUIText.getInfoUIPanelText(1).radius, 
+	infoUIText.getInfoUIPanelText(1).orbitalPeriod, 
+	infoUIText.getInfoUIPanelText(1).dayLength
+);
 // InfoUI.setPosition(position);
 // InfoUI.setRotation({ x: 0, y: 90, z: 0 });
 // ------------------------------------------------------------------
