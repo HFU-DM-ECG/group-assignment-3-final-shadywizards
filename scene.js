@@ -258,7 +258,7 @@ function updateInfoUIText(headerText, temp, dist, mass, a, b, c) {
 	InfoUIPanel.updateElement("b", b);
 	InfoUIPanel.updateElement("c", c);
 }
-updateInfoUIText(
+/* updateInfoUIText(
 	infoUIText.getInfoUIPanelText(1).planet, 
 	infoUIText.getInfoUIPanelText(1).temperature, 
 	infoUIText.getInfoUIPanelText(1).distance, 
@@ -266,11 +266,52 @@ updateInfoUIText(
 	infoUIText.getInfoUIPanelText(1).radius, 
 	infoUIText.getInfoUIPanelText(1).orbitalPeriod, 
 	infoUIText.getInfoUIPanelText(1).dayLength
-);
+); */
 // InfoUI.setPosition(position);
 // InfoUI.setRotation({ x: 0, y: 90, z: 0 });
 // ------------------------------------------------------------------
 
+// Raycaster --------------------------------------------------------
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+const cursor = new THREE.Mesh(
+	new THREE.RingBufferGeometry(0.1, 0.15),
+	new THREE.MeshBasicMaterial({ color: "white" })
+  );
+
+function onPointerMove(event) {
+	// calculate pointer position in normalized device coordinates
+	// (-1 to +1) for both components
+	pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+	pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
+	checkRay();
+}
+
+function checkRay(event) {
+	// update the ray with the camera and pointer position
+	raycaster.setFromCamera(pointer, camera);
+	// calculate objects intersecting the ray
+	for (const can of cans) {
+		const intersect = raycaster.intersectObject(can);
+		const selected = intersect.length > 0;
+		cursor.material.color.set(selected ? "red" : "white");
+		if (selected && event) {
+			const index = cans.indexOf(can);
+			updateInfoUIText(
+				infoUIText.getInfoUIPanelText(index).planet,
+				infoUIText.getInfoUIPanelText(index).temperature,
+				infoUIText.getInfoUIPanelText(index).distance,
+				infoUIText.getInfoUIPanelText(index).mass,
+				infoUIText.getInfoUIPanelText(index).radius,
+				infoUIText.getInfoUIPanelText(index).orbitalPeriod,
+				infoUIText.getInfoUIPanelText(index).dayLength
+			);
+		}
+	}
+}
+window.addEventListener('pointermove', onPointerMove);
+window.addEventListener('pointerdown', checkRay);
+// ------------------------------------------------------------------
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.autoRotate = false;
