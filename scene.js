@@ -5,8 +5,8 @@ import { GLTFLoader } from 'https://unpkg.com/three@0.120.1/examples/jsm/loaders
 import { ARButton } from './ARButton.js';
 import { UiPanel } from './CanvasUI/uiPanel.js';
 
-import * as planets from './planets.js';
 import * as infoUIText from './info.js';
+import * as planets from './planets.js';
 
 //changing variables
 let time = 0;
@@ -96,12 +96,8 @@ document.body.appendChild(arButton);
 //AR controller (for touch input on mobile devices) --------------------------------
 let scenePlaced = false;
 function onSelect() {
-	if (scenePlaced) return;
-
-	solarSystemOffset = -5;
-	console.log('solar system placed');
-
-	scenePlaced = true;
+	onPointerMove();
+	checkRay();
 }
 
 const controller = renderer.xr.getController(0); //renderer.xr.getController(0) = first touch input onto the scene
@@ -231,8 +227,8 @@ function createPropertiesUIPanel() {
 	panel.add(settings, 'planetsSpeed', 0.0, 10.0, 0.01);
 	panel.add(settings, 'planetsDistanceScale', 0.1, 3, 0.01);
 
-	panel.onChange( event => {
-		switch(event.property){
+	panel.onChange(event => {
+		switch (event.property) {
 			case "planetsScale":
 				adjustPlanetScale(event.value);
 				break;
@@ -243,7 +239,7 @@ function createPropertiesUIPanel() {
 				adjustPlanetDistanceScale(event.value);
 				break;
 		}
-	} );
+	});
 }
 createPropertiesUIPanel();
 
@@ -309,7 +305,7 @@ const pointer = new THREE.Vector2();
 const cursor = new THREE.Mesh(
 	new THREE.RingBufferGeometry(0.1, 0.15),
 	new THREE.MeshBasicMaterial({ color: "white" })
-  );
+);
 
 function onPointerMove(event) {
 	// calculate pointer position in normalized device coordinates
