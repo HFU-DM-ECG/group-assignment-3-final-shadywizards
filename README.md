@@ -19,7 +19,7 @@ By analyzing the other groups AR setup, we came across some issues in the way we
 The features we added to the application for this assignement are: 
 1. A GUI that lets the user adjust the scale of the planets size, speed and distance to each other
 2. A 3D UI floating above the sun showing informations about the currently selected planet (default = earth), although not entirely serious, because we kept the softdrink-theme also for the planet informations
-3. A raycast can be shot from the center of the screen, and if it hits one of the planets, it shows the information about the respective planet
+3. A raycast can be shot from the center of the screen, and if it hits one of the planets, it shows the information about the respective planet. (This one is not yet working. We tried to implement a mesh for the pointer of the raycaster in order to make it visible for the user, as there is nothing optical included in it by default. Apart from that we tried several ways to check if the ray has been moved and if a planet intersects with it to be able to display the information of the planet.)
 
 ## Want to check it out?
 1. Get your smartphone ready and...
