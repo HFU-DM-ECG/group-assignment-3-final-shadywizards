@@ -22,20 +22,26 @@ const Planets = {
 export const amount = Object.keys(Planets).length;
 
 // berechnung der Planetenpositionen auf Basis der kepler'schen Gesetze mithilfe der obigen Daten
-function calculatePlanetPosition(time, planet) { // 
+function calculatePlanetPosition(time, planet, speedFactor, planetDistanceScaleFactor) { 
+  if (speedFactor == undefined) {
+    speedFactor = 1;
+  }
+  if (planetDistanceScaleFactor == undefined) {
+    planetDistanceScaleFactor = 1;
+  }
   const omega = (2 * Math.PI) / planet.orbitalPeriodInYears; // Winkelgeschwindigkeit -> Winkel, den planet pro zeiteinheit durchläuft
-  const scaleFactor = 5;
-  const x = planet.semiMajorAxis * Math.cos(omega * time) * scaleFactor;
-  const y = planet.semiMajorAxis * Math.sin(omega * time) * scaleFactor;
+  const sunVolumeOffset = 1;
+  const x = (sunVolumeOffset + planet.semiMajorAxis * planetDistanceScaleFactor) * Math.cos(omega * time * speedFactor) ;
+  const y = (sunVolumeOffset + planet.semiMajorAxis * planetDistanceScaleFactor) * Math.sin(omega * time * speedFactor);
 
   return { x, y };
 }
 
-export function getAllPlanetPositions(time) {
+export function getAllPlanetPositions(time, speedFactor, planetDistanceScaleFactor) {
   const coordinates = [];
 
   for (const key in Planets) {
-    var position = calculatePlanetPosition(time, Planets[key]);
+    var position = calculatePlanetPosition(time, Planets[key], speedFactor, planetDistanceScaleFactor);
     coordinates.push({ x: position.x, y: 0, z: position.y });
   }
 
@@ -65,10 +71,10 @@ function getDistanceBetweenVectors(a, b){
 }
 
 // function to get the can scale relative to the sun, the sun being 2 meters wide
-function getCanScaleRelativeToSun(planet) {
+function getCanScaleRelativeToSun(planet, lesseningFactor) {
  const sunWidth = 2;
- const rSunWidth = 20000;
- const scaleFactor = sunWidth / rSunWidth;
+ const rSunWidth = 50000;
+ const scaleFactor = sunWidth * lesseningFactor / rSunWidth;
 
  const rPlanetWidth = planet.radiusInKM;
  const planetWidth = rPlanetWidth * scaleFactor;
@@ -78,11 +84,15 @@ function getCanScaleRelativeToSun(planet) {
 }
 
 // get all the scales of all the cans for can generation
-export function getAllCanScales() {
+export function getAllCanScales(lesseningFactor) {
+  // factor used to adjust this value with the UI slider. 
+  if (lesseningFactor == undefined) {
+    lesseningFactor = 1;
+  }
   const scales = [];
 
   for (const key in Planets) {
-    var scale = getCanScaleRelativeToSun(Planets[key]);
+    var scale = getCanScaleRelativeToSun(Planets[key], lesseningFactor);
     scales.push(scale);
   }
   return scales;

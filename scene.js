@@ -181,6 +181,8 @@ function loadCans(loader, amountOfCans) {
 	return cans;
 }
 
+var currentPlanetSpeedFactor = 1;
+var currentPlanetDistanceScaleFactor = 1;
 function animateCans() {
 	// the counter is used to differentiate between the planets
 	let canCounter = 0;
@@ -190,8 +192,8 @@ function animateCans() {
 		can.rotation.z = can.rotation.z + .0003;
 
 		const timeFactor = 1 / 2000
-		can.position.x = planets.getAllPlanetPositions(time * timeFactor)[canCounter].x;
-		can.position.z = planets.getAllPlanetPositions(time * timeFactor)[canCounter].z;
+		can.position.x = planets.getAllPlanetPositions(time * timeFactor, currentPlanetSpeedFactor, currentPlanetDistanceScaleFactor)[canCounter].x;
+		can.position.z = planets.getAllPlanetPositions(time * timeFactor, currentPlanetSpeedFactor, currentPlanetDistanceScaleFactor)[canCounter].z;
 		canCounter += 1;
 	}
 	requestAnimationFrame(animateCans);
@@ -221,15 +223,45 @@ function createPropertiesUIPanel() {
 	const panel = new GUI({ width: 310 });
 
 	const settings = {
-		planetsScale: 2.0,
+		planetsScale: 1.0,
+		planetsSpeed: 1.0,
+		planetsDistanceScale: 1.0
 	}
-	panel.add(settings, 'planetsScale', 0.0, 10.0, 0.01);
+	panel.add(settings, 'planetsScale', 0.0, 2.0, 0.01);
+	panel.add(settings, 'planetsSpeed', 0.0, 10.0, 0.01);
+	panel.add(settings, 'planetsDistanceScale', 0.1, 3, 0.01);
 
-	function modifyPlanetsScale(scale) {
-		console.log(scale)
-	}
+	panel.onChange( event => {
+		switch(event.property){
+			case "planetsScale":
+				adjustPlanetScale(event.value);
+				break;
+			case "planetsSpeed":
+				adjustPlanetSpeed(event.value);
+				break;
+			case "planetsDistanceScale":
+				adjustPlanetDistanceScale(event.value);
+				break;
+		}
+	} );
 }
 createPropertiesUIPanel();
+
+function adjustPlanetScale(scale) {
+	var canScales = planets.getAllCanScales(scale);
+	// update planets scales 
+	for (var i = 0; i < cans.length; i++) {
+		cans[i].scale.set(canScales[i], canScales[i], canScales[i]);
+	}
+}
+
+function adjustPlanetSpeed(speedFactor) {
+	currentPlanetSpeedFactor = speedFactor;
+}
+
+function adjustPlanetDistanceScale(planetDistanceScaleFactor) {
+	currentPlanetDistanceScaleFactor = planetDistanceScaleFactor;
+}
 // ------------------------------------------------------------------
 
 // Info UI ----------------------------------------------------------
