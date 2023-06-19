@@ -286,17 +286,15 @@ function updateInfoUIText(headerText, temp, dist, mass, a, b, c) {
 	InfoUIPanel.updateElement("b", b);
 	InfoUIPanel.updateElement("c", c);
 }
-/* updateInfoUIText(
-	infoUIText.getInfoUIPanelText(1).planet, 
-	infoUIText.getInfoUIPanelText(1).temperature, 
-	infoUIText.getInfoUIPanelText(1).distance, 
-	infoUIText.getInfoUIPanelText(1).mass, 
-	infoUIText.getInfoUIPanelText(1).radius, 
-	infoUIText.getInfoUIPanelText(1).orbitalPeriod, 
-	infoUIText.getInfoUIPanelText(1).dayLength
-); */
-// InfoUI.setPosition(position);
-// InfoUI.setRotation({ x: 0, y: 90, z: 0 });
+updateInfoUIText(
+	infoUIText.getInfoUIPanelText(2).planet,
+	infoUIText.getInfoUIPanelText(2).temperature,
+	infoUIText.getInfoUIPanelText(2).distance,
+	infoUIText.getInfoUIPanelText(2).mass,
+	infoUIText.getInfoUIPanelText(2).radius,
+	infoUIText.getInfoUIPanelText(2).orbitalPeriod,
+	infoUIText.getInfoUIPanelText(2).dayLength
+);
 // ------------------------------------------------------------------
 
 // Raycaster --------------------------------------------------------
@@ -340,6 +338,14 @@ function checkRay(event) {
 window.addEventListener('pointermove', onPointerMove);
 window.addEventListener('pointerdown', checkRay);
 // ------------------------------------------------------------------
+
+function onWindowResize() {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize(window.innerWidth, window.innerHeight);
+}
+window.addEventListener("resize", onWindowResize, false);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.autoRotate = false;
