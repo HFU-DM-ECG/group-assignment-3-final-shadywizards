@@ -22,7 +22,7 @@ const Planets = {
 export const amount = Object.keys(Planets).length;
 
 // berechnung der Planetenpositionen auf Basis der kepler'schen Gesetze mithilfe der obigen Daten
-function calculatePlanetPosition(time, planet, speedFactor, planetDistanceScaleFactor) { 
+function calculatePlanetPosition(time, planet, speedFactor, planetDistanceScaleFactor) {
   if (speedFactor == undefined) {
     speedFactor = 1;
   }
@@ -31,7 +31,7 @@ function calculatePlanetPosition(time, planet, speedFactor, planetDistanceScaleF
   }
   const omega = (2 * Math.PI) / planet.orbitalPeriodInYears; // Winkelgeschwindigkeit -> Winkel, den planet pro zeiteinheit durchläuft
   const sunVolumeOffset = 1;
-  const x = (sunVolumeOffset + planet.semiMajorAxis * planetDistanceScaleFactor) * Math.cos(omega * time * speedFactor) ;
+  const x = (sunVolumeOffset + planet.semiMajorAxis * planetDistanceScaleFactor) * Math.cos(omega * time * speedFactor);
   const y = (sunVolumeOffset + planet.semiMajorAxis * planetDistanceScaleFactor) * Math.sin(omega * time * speedFactor);
 
   return { x, y };
@@ -54,8 +54,8 @@ export function getScaleForSolarSystem(goalDistInMeters) {
   // how far is it from the furthest can (pluto) to the sun in the solarsystem group?
   // ignoring the radius!
   const positionPlutoXY = calculatePlanetPosition(0, Planets.Pluto);
-  const positionPluto = {x: positionPlutoXY.x, y: 0, z: positionPlutoXY.y};
-  const positionSun = {x: 0, y: 0, z: 0};
+  const positionPluto = { x: positionPlutoXY.x, y: 0, z: positionPlutoXY.y };
+  const positionSun = { x: 0, y: 0, z: 0 };
   const currentDist = getDistanceBetweenVectors(positionPluto, positionSun);
 
   //return the scale
@@ -63,7 +63,7 @@ export function getScaleForSolarSystem(goalDistInMeters) {
 }
 
 //takes two vector2's, returns a number
-function getDistanceBetweenVectors(a, b){
+function getDistanceBetweenVectors(a, b) {
   let z = b.x - a.x;
   let x = b.z - a.z;
 
@@ -72,15 +72,15 @@ function getDistanceBetweenVectors(a, b){
 
 // function to get the can scale relative to the sun, the sun being 2 meters wide
 function getCanScaleRelativeToSun(planet, lesseningFactor) {
- const sunWidth = 2;
- const rSunWidth = 50000;
- const scaleFactor = sunWidth * lesseningFactor / rSunWidth;
+  const sunWidth = 2;
+  const rSunWidth = 20000;
+  const scaleFactor = sunWidth * lesseningFactor / rSunWidth;
 
- const rPlanetWidth = planet.radiusInKM;
- const planetWidth = rPlanetWidth * scaleFactor;
+  const rPlanetWidth = planet.radiusInKM;
+  const planetWidth = rPlanetWidth * scaleFactor;
 
- // the can has a scale of 1 already so the new width can be used as scale. 
- return planetWidth;
+  // the can has a scale of 1 already so the new width can be used as scale. 
+  return planetWidth;
 }
 
 // get all the scales of all the cans for can generation
