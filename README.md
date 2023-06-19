@@ -22,7 +22,7 @@ The features we added to the application for this assignement are:
 3. A raycast can be shot from the center of the screen, and if it hits one of the planets, it shows the information about the respective planet
 
 # Want to check it out?
-1. Get your smartphone ready and open...
-    - a. ...the Chrome browser if you are on Android
+1. Get your smartphone ready and...
+    - a. ...open the Chrome browser if you are on Android
     - b. ..download the 'WebXR Viewer' application from the App Store and launch it
 2. Copy the following link and paste it into the URL/address bar: https://hfu-dm-ecg.github.io/group-assignment-3-final-shadywizards/
