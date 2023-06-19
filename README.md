@@ -12,7 +12,7 @@ The rating will be as follows:
 - WebXR Concept: 40 %
 - code quality: 30 %
 
-# Description of our Work
+## Description of our Work
 
 By analyzing the other groups AR setup, we came across some issues in the way we set up the three.js renderer. Fixing those issues made the app able to run in AR mode on mobile devices.
 
@@ -21,7 +21,7 @@ The features we added to the application for this assignement are:
 2. A 3D UI floating above the sun showing informations about the currently selected planet (default = earth), although not entirely serious, because we kept the softdrink-theme also for the planet informations
 3. A raycast can be shot from the center of the screen, and if it hits one of the planets, it shows the information about the respective planet
 
-# Want to check it out?
+## Want to check it out?
 1. Get your smartphone ready and...
     - a. ... open the Chrome browser if you are on Android
     - b. ... if you are on iOS, download the 'WebXR Viewer' application from the App Store and launch it
