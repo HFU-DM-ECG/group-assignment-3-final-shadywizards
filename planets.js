@@ -73,8 +73,8 @@ function getDistanceBetweenVectors(a, b) {
 // function to get the can scale relative to the sun, the sun being 2 meters wide
 function getCanScaleRelativeToSun(planet, lesseningFactor) {
   const sunWidth = 2;
-  const rSunWidth = 2000;
-  const scaleFactor = sunWidth * lesseningFactor * 0.02 / rSunWidth;
+  const rSunWidth = 20000;
+  const scaleFactor = sunWidth * lesseningFactor * 0.1 / rSunWidth;
 
   const rPlanetWidth = planet.radiusInKM;
   const planetWidth = rPlanetWidth * scaleFactor;
