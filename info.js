@@ -25,7 +25,7 @@ const infoUIPanelText = [
     mass: "Mass: 5,9722 · 1024 kg",
     radius: "Radius: 6371 km",
     orbitalPeriod: "Orbital Period: 1 day",
-    dayLength: "Day Lengt: 1 day",
+    dayLength: "Day Length: 1 day",
     headerColor: "#ff4f19",
     backgroundColor: "#ff4f19"},
 
