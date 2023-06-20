@@ -277,7 +277,15 @@ function createInfoUIPanel() {
 }
 createInfoUIPanel();
 
-function updateInfoUIText(headerText, temp, dist, mass, a, b, c) {
+function updateInfoUIText(planetIndex) {
+	const headerText  = infoUIText.getInfoUIPanelText(planetIndex).planet;
+	const temp  = infoUIText.getInfoUIPanelText(planetIndex).temperature;
+	const dist  = infoUIText.getInfoUIPanelText(planetIndex).distance;
+	const mass  = infoUIText.getInfoUIPanelText(planetIndex).mass;
+	const a  = infoUIText.getInfoUIPanelText(planetIndex).radius;
+	const b  = infoUIText.getInfoUIPanelText(planetIndex).orbitalPeriod;
+	const c = infoUIText.getInfoUIPanelText(planetIndex).dayLength;
+
 	InfoUIPanel.updateElement("header", headerText);
 	InfoUIPanel.updateElement("temp", temp);
 	InfoUIPanel.updateElement("dist", dist);
@@ -286,15 +294,7 @@ function updateInfoUIText(headerText, temp, dist, mass, a, b, c) {
 	InfoUIPanel.updateElement("b", b);
 	InfoUIPanel.updateElement("c", c);
 }
-updateInfoUIText(
-	infoUIText.getInfoUIPanelText(2).planet,
-	infoUIText.getInfoUIPanelText(2).temperature,
-	infoUIText.getInfoUIPanelText(2).distance,
-	infoUIText.getInfoUIPanelText(2).mass,
-	infoUIText.getInfoUIPanelText(2).radius,
-	infoUIText.getInfoUIPanelText(2).orbitalPeriod,
-	infoUIText.getInfoUIPanelText(2).dayLength
-);
+updateInfoUIText(2);
 // ------------------------------------------------------------------
 
 // Raycaster --------------------------------------------------------
@@ -323,15 +323,7 @@ function checkRay(event) {
 		cursor.material.color.set(selected ? "red" : "white");
 		if (selected && event) {
 			const index = cans.indexOf(can);
-			updateInfoUIText(
-				infoUIText.getInfoUIPanelText(index).planet,
-				infoUIText.getInfoUIPanelText(index).temperature,
-				infoUIText.getInfoUIPanelText(index).distance,
-				infoUIText.getInfoUIPanelText(index).mass,
-				infoUIText.getInfoUIPanelText(index).radius,
-				infoUIText.getInfoUIPanelText(index).orbitalPeriod,
-				infoUIText.getInfoUIPanelText(index).dayLength
-			);
+			updateInfoUIText(index);
 		}
 	}
 }
