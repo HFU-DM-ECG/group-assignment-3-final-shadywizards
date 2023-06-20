@@ -266,7 +266,7 @@ let InfoUIPanel;
 function createInfoUIPanel() {
 	let position = {
 		x: sunPos.x,
-		y: 3,
+		y: 1,
 		z: sunPos.z
 	}
 	let headerText = "Sun";
