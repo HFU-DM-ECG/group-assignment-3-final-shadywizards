@@ -315,8 +315,8 @@ function onPointerMove(event) {
 
 function checkRay(event) {
 	// update the ray with the camera and pointer position
-	raycaster.set(camera.position, new THREE.Vector3(100, 100, 100));
-	console.log("Test");
+	raycaster.set(camera.position, new THREE.Vector3(0, 0, -1));
+	console.log("Testing");
 	//raycaster.setFromCamera(pointer, camera);
 	// calculate objects intersecting the ray
 	for (const can of cans) {
