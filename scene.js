@@ -198,7 +198,7 @@ function animateCans() {
 
 
 //Sun----------------------------------------------------------------
-const sunGeometry = new THREE.SphereGeometry(1, 32, 32);
+const sunGeometry = new THREE.SphereGeometry(.4, 32, 32);
 const sunTexture = new THREE.TextureLoader().load('Assets/sun.jpg');
 const sunMaterial = new THREE.MeshBasicMaterial({ map: sunTexture });
 
